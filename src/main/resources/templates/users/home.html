@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="partials/header::header(${'Home'})"/>
+
+<body class="bg-white border-white">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-secondary">
+    <a class="navbar-brand text-muted" href="#">Welcome <span th:text="${user.username}"></span></a>
+    <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse border-muted bg-light" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link text-muted" href="#">Order Online <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0 border-muted">
+                    <input class="form-control mr-sm-2 w-15% border-muted text-muted" type="search" placeholder="Zip code" aria-label="Search"/>
+                    <button class="btn  my-2 my-sm-0  text-muted " style="background: bisque" type="submit">Search stores near you!</button>
+                </form>
+            </li>
+        </ul>
+        <!--seccion-->
+        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}" class="top-nav notification-row">
+            <!-- notificatoin dropdown start-->
+            <span th:case="${true}">
+            <ul class="nav pull-right top-menu">
+
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          <span class="profile-ava">
+                              <!--<img alt="" src="img/avatar1_small.jpg"/>-->
+                          </span>
+                        <span th:text="${user.username}"></span>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <li>
+                            <a href="/profile">
+                                <i class="icon_profile"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <div class="log-arrow-up"></div>
+                        <li class="eborder-top">
+                            <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+                </span>
+            <span th:case="${false}">
+                <ul class="nav pull-right top-menu">
+
+                <!-- user login dropdown start-->
+
+                    <!-- user login dropdown end -->
+            </ul>
+
+                </span>
+            <!-- notification dropdown end-->
+        </div>
+        <div class="iconodiv">
+            <a class="nav-link text-muted" href="#"><img class="icono" src="Images/ic_account_circle.png"/>Abrir Seccion</a>
+        </div>
+
+    </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/header::header(${'entrar'})">
+    <link rel="stylesheet" href="/static/css/Style.css"/>
+</head>
+<body>
+<div class="row">
+    <div class="col .col-4"></div>
+<div class="col .col-4 login-form  signing" th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')}:${false}">
+    <form th:action="@{/login}" method="post">
+        <h2 class="text-center">Log in</h2>
+        <div class="form-group">
+            <input id="username" name="username" type="text" class="form-control" placeholder="Username" required="required"/>
+        </div>
+        <div class="form-group">
+            <input id="password" name="password" type="password" class="form-control" placeholder="Password" required="required"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+        <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"/> Remember me</label>
+            <a href="#" class="pull-right">Forgot Password?</a>
+        </div>
+    </form>
+
+    <span th:case="${true}">
+        <form class="login-form"  th:action="@{/logout}" th:method="post">
+            <div class="login-wrap">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="icon_profile"></i></span>
+                <button type="submit" th:href="end.session" class="btn btn-primary btn-block">Logout</button>
+                </div>
+            </div>
+        </form>
+    </span>
+
+    <p class="text-center"><a href="#">Create an Account</a></p>
+</div>
+    <div class="col .col-4"></div>
+</div>
+</body>
+</html>
